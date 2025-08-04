@@ -1,9 +1,6 @@
 import { DataSource } from 'typeorm';
-import { User } from './src/users/entities/user.entity';
-import { RequestMosque } from './src/request-mosque/entities/request-mosque.entity';
 import { config } from 'dotenv';
 
-// Load env vars from .env
 config();
 
 export const AppDataSource = new DataSource({
@@ -13,7 +10,8 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [User, RequestMosque],
-  migrations: ['./migrations/*.ts'],
+  entities: ['src/**/*.entity.ts'],
+  migrations: ['./src/migrations/*.ts'],
   synchronize: false,
+  logging: true,
 });

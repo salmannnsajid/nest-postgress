@@ -28,7 +28,7 @@ export class RequestMosqueController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
-      return this.requestMosqueService.findOne(+id);
+      return this.requestMosqueService.findOne(id);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
@@ -37,7 +37,7 @@ export class RequestMosqueController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     try {
-      return this.requestMosqueService.remove(+id);
+      return this.requestMosqueService.remove(id);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
@@ -46,7 +46,7 @@ export class RequestMosqueController {
   @Post(':id/accept')
   async accept(@Param('id') id: string) {
     try {
-      return await this.requestMosqueService.accept(+id);
+      return await this.requestMosqueService.accept(id);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
@@ -55,7 +55,7 @@ export class RequestMosqueController {
   @Post(':id/reject')
   async reject(@Param('id') id: string) {
     try {
-      return await this.requestMosqueService.reject(+id);
+      return await this.requestMosqueService.reject(id);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

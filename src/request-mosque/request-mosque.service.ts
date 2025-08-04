@@ -34,7 +34,7 @@ export class RequestMosqueService {
     return this.mosqueRepo.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const mosque = await this.mosqueRepo.findOneBy({ id });
     if (!mosque) {
       throw new NotFoundException('Mosque not found');
@@ -43,7 +43,7 @@ export class RequestMosqueService {
     return this.mosqueRepo.findOneBy({ id });
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const mosque = await this.mosqueRepo.findOneBy({ id });
 
     if (!mosque) {
@@ -53,7 +53,7 @@ export class RequestMosqueService {
     return this.mosqueRepo.delete(id);
   }
 
-  async accept(id: number) {
+  async accept(id: string) {
     const mosque = await this.mosqueRepo.findOneBy({ id });
     if (!mosque) throw new Error('Mosque not found');
 
@@ -70,7 +70,7 @@ export class RequestMosqueService {
     return { message: 'Mosque request accepted and duplicates deleted.' };
   }
 
-  async reject(id: number) {
+  async reject(id: string) {
     const mosque = await this.mosqueRepo.findOneBy({ id });
     if (!mosque) throw new Error('Mosque request not found');
 

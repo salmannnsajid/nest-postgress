@@ -9,7 +9,7 @@ import {
   Matches,
 } from 'class-validator';
 
-export class CreateUserDto {
+export class RegisterUserDto {
   @ApiProperty({ example: 'Salman Sajid' })
   @IsString()
   @IsNotEmpty()

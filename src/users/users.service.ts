@@ -28,8 +28,12 @@ export class UsersService {
     return this.userRepo.find({ where });
   }
 
-  async getUserById(id: number) {
+  async getUserById(id: string) {
     return this.userRepo.findOneBy({ id });
+  }
+
+  async findUserByEmail(email: string) {
+    return this.userRepo.findOneBy({ email });
   }
 
   async createUser(dto: CreateUserDto, profilePicture: Express.Multer.File) {
@@ -58,7 +62,7 @@ export class UsersService {
     return this.userRepo.save(dto);
   }
 
-  async updateUser(id: number, dto: UpdateUserDto) {
+  async updateUser(id: string, dto: UpdateUserDto) {
     const user = await this.userRepo.findOneBy({ id });
 
     if (!user) {
@@ -68,7 +72,7 @@ export class UsersService {
     return await this.userRepo.save(updatedUser);
   }
 
-  async deleteUser(id: number) {
+  async deleteUser(id: string) {
     await this.userRepo.delete({ id });
     return { message: 'User has been deleted.' };
   }

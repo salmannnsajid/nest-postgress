@@ -9,6 +9,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from './users/entities/user.entity';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { AuthModule } from './auth/auth.module';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { TodosModule } from './todos/todos.module';
+import { Todo } from './todos/entities/todo.entity';
 
 @Module({
   imports: [
@@ -39,16 +43,22 @@ import { APP_GUARD } from '@nestjs/core';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [RequestMosque, User],
+        entities: [RequestMosque, User, Todo],
         synchronize: false, // turn off in production
       }),
       inject: [ConfigService],
     }),
 
+    AuthModule,
     UsersModule,
+    TodosModule,
     RequestMosqueModule,
   ],
   controllers: [AppController],
-  providers: [AppService, { provide: APP_GUARD, useClass: ThrottlerGuard }],
+  providers: [
+    AppService,
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+  ],
 })
 export class AppModule {}
