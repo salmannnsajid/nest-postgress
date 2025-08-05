@@ -2,8 +2,6 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
-import { RequestMosqueModule } from './request-mosque/request-mosque.module';
-import { RequestMosque } from './request-mosque/entities/request-mosque.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from './users/entities/user.entity';
@@ -11,9 +9,12 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
-import { TodosModule } from './todos/todos.module';
-import { Todo } from './todos/entities/todo.entity';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { OrdersModule } from './orders/orders.module';
+import { Order } from './orders/entities/order.entity';
+import { ProductsModule } from './products/products.module';
+import { Product } from './products/entities/product.entity';
+import { OrderItem } from './orders/entities/order-item.entity';
 
 @Module({
   imports: [
@@ -44,7 +45,7 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [RequestMosque, User, Todo],
+        entities: [User, Order, Product, OrderItem],
         synchronize: false, // turn off in production
       }),
       inject: [ConfigService],
@@ -52,8 +53,8 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
 
     AuthModule,
     UsersModule,
-    TodosModule,
-    RequestMosqueModule,
+    ProductsModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [

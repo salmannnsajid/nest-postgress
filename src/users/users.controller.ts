@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { CustomUUIDPipe } from '@/common/pipes/uuid-pipe';
 
 @Controller('users')
 export class UsersController {
@@ -20,20 +21,20 @@ export class UsersController {
   }
 
   @Get(':id')
-  async getUserById(@Param('id') id: string) {
+  async getUserById(@Param('id', CustomUUIDPipe) id: string) {
     return this.userService.getUserById(id);
   }
 
   @Patch(':id')
   async updateUser(
-    @Param('id') id: string,
+    @Param('id', CustomUUIDPipe) id: string,
     @Body() updateUserDto: UpdateUserDto,
   ) {
     return this.userService.updateUser(id, updateUserDto);
   }
 
   @Delete()
-  deleteUser(@Param('id') id: string) {
+  deleteUser(@Param('id', CustomUUIDPipe) id: string) {
     const deleted = this.userService.deleteUser(id);
     return deleted;
   }

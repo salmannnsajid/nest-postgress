@@ -1,5 +1,5 @@
 import Model from '@/common/entities/base.entity';
-import { Todo } from '@/todos/entities/todo.entity';
+import { Order } from '@/orders/entities/order.entity';
 import { Entity, Column, OneToMany } from 'typeorm';
 
 @Entity()
@@ -25,6 +25,6 @@ export class User extends Model {
   @Column()
   password: string;
 
-  @OneToMany(() => Todo, (todo) => todo.user)
-  todos: Todo[];
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
 }
